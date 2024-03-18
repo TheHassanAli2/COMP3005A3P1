@@ -1,3 +1,4 @@
+Hassan Ali - 101262208
 To compile and run the application:
 
 1. run pip install psycopg2-binary
