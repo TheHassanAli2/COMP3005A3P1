@@ -1,12 +1,18 @@
 import psycopg2
 
+db = input("Login to the students database manager!\nWhat is the database name?")
+host = input("What is the host name?")
+user = input("What is the user name?")
+pword = input("What is the password?")
+port = input("What is the port?")
+
+conn = psycopg2.connect(database=db,
+                        host=host,
+                        user=user,
+                        password=pword,
+                        port=port)
 
 
-conn = psycopg2.connect(database="A3",
-                        host="localhost",
-                        user="postgres",
-                        password="",
-                        port="5432")
 cursor = conn.cursor()
 
 #Create table
@@ -59,7 +65,7 @@ def deleteStudent(student_id):
 choice = "-1"
 while(choice != "0"):
     print()
-    choice = input("Welcome to the students database manager!\nPress 1 to get all students \nPress 2 to add a student\nPress 3 to update a student's email\nPress 4 to delete a student\nPress 0 to exit: ")
+    choice = input("Welcome to the students database manager\nPress 1 to get all students \nPress 2 to add a student\nPress 3 to update a student's email\nPress 4 to delete a student\nPress 0 to exit: ")
     print()
     if choice == "1":
         getAllStudents()
