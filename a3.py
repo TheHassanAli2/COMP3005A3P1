@@ -1,5 +1,6 @@
 import psycopg2
 
+#Prompts the user for information which is necessary to connect to the postgres database
 db = input("Login to the students database manager!\nWhat is the database name?")
 host = input("What is the host name?")
 user = input("What is the user name?")
@@ -11,7 +12,6 @@ conn = psycopg2.connect(database=db,
                         user=user,
                         password=pword,
                         port=port)
-
 
 cursor = conn.cursor()
 
@@ -29,24 +29,29 @@ cursor.execute('''
         enrollment_date DATE
     );
 ''')
+
 conn.commit()
 
+#Insert starting data
 cursor.execute(''' INSERT INTO students (first_name, last_name, email, enrollment_date) VALUES
 ('John', 'Doe', 'john.doe@example.com', '2023-09-01'),
 ('Jane', 'Smith', 'jane.smith@example.com', '2023-09-01'),
 ('Jim', 'Beam', 'jim.beam@example.com', '2023-09-02'); ''')
 conn.commit()
 
+#Returns all of the students in the students table
 def getAllStudents():
     cursor.execute(''' Select * from students;''')
     for i in cursor.fetchall():
         print(i)
 
+#Adds a student to the student table with the given parameters
 def addStudent(first_name, last_name, email, enrollment_date):
     cursor.execute(f''' INSERT INTO students (first_name, last_name, email, enrollment_date) VALUES
     ('{first_name}', '{last_name}', '{email}', '{enrollment_date}'); ''')
     conn.commit()
 
+#Updates a student's emial using the parameters
 def updateStudentEmail(student_id, new_email):
     cursor.execute(f'''
         UPDATE students
@@ -55,6 +60,7 @@ def updateStudentEmail(student_id, new_email):
     ''')
     conn.commit()
 
+#Deletes a student using their id
 def deleteStudent(student_id):
     cursor.execute(f'''
         DELETE FROM students
@@ -62,6 +68,7 @@ def deleteStudent(student_id):
     ''')
     conn.commit()
 
+#Menu Loop
 choice = "-1"
 while(choice != "0"):
     print()
