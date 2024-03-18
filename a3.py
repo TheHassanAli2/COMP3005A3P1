@@ -15,8 +15,6 @@ conn = psycopg2.connect(database=db,
 
 cursor = conn.cursor()
 
-
-
 #Create table
 cursor.execute('''
     drop table if exists students;;
